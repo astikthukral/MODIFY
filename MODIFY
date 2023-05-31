@@ -1,0 +1,59 @@
+from tkinter import *
+import calendar
+
+def display_calendar():
+    # Get the user input
+    try:
+        actual_year = int(year_entry.get())
+    except ValueError:
+        error_label.config(text="Please enter a valid year")
+        return
+
+    # Create a new window to display the calendar
+    new_root = Toplevel()
+    new_root.title(f"Calendar {actual_year}")
+    new_root.geometry('600x700')
+    new_root.config(bg='white')
+
+    # Create a label to display the calendar
+    calendar_content = calendar.calendar(actual_year)
+    calendar_label = Label(new_root, text=calendar_content, font='Consolas 10')
+    calendar_label.pack(padx=30, pady=30)
+
+def exit_app():
+    root.destroy()
+
+# Create the main window
+root = Tk()
+root.title('Calendar')
+root.geometry("400x300")
+root.config(bg='white')
+
+# Create the header label
+header_label = Label(root, text='CALENDAR', bg='white', fg='black', font=('Arial', 24, 'bold'))
+header_label.pack(padx=25, pady=25)
+
+# Create the input form
+input_frame = Frame(root, bg='white')
+input_frame.pack(padx=25)
+
+year_label = Label(input_frame, text='Enter the year:', font=('Arial', 12))
+year_label.pack(side=LEFT)
+
+year_entry = Entry(input_frame, width=5, font=('Arial', 12))
+year_entry.pack(side=LEFT, padx=10)
+
+error_label = Label(input_frame, text='', fg='red', font=('Arial', 12))
+error_label.pack(side=LEFT)
+
+# Create the buttons
+button_frame = Frame(root, bg='white')
+button_frame.pack(pady=20)
+
+show_button = Button(button_frame, text='Show Calendar', bg='light blue', font=('Arial', 12), command=display_calendar)
+show_button.pack(side=LEFT, padx=10)
+
+exit_button = Button(button_frame, text='Exit', bg='red', font=('Arial', 12), command=exit_app)
+exit_button.pack(side=LEFT, padx=10)
+
+root.mainloop()
